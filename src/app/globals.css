@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   AYAN Design System
+   Light theme is the default. Dark mode is toggled by adding `dark` to <html>.
+   Colours are exposed as CSS variables so the palette can be themed centrally.
+--------------------------------------------------------------------------- */
+
+@layer base {
+  :root {
+    --ayan-bg: 255 255 255;
+    --ayan-surface: 246 248 252;
+    --ayan-card: 255 255 255;
+    --ayan-border: 226 232 240;
+    --ayan-text: 18 28 46;
+    --ayan-muted: 100 116 139;
+    --ayan-brand: 43 102 230;
+    --ayan-brand-strong: 26 79 196;
+    --ayan-brand-soft: 238 244 255;
+    --ayan-navy: 18 28 46;
+    --ayan-success: 16 145 108;
+    --ayan-warning: 200 138 20;
+    --ayan-danger: 200 45 60;
+  }
+
+  .dark {
+    --ayan-bg: 12 18 30;
+    --ayan-surface: 18 26 42;
+    --ayan-card: 22 32 50;
+    --ayan-border: 39 51 74;
+    --ayan-text: 233 238 247;
+    --ayan-muted: 148 163 184;
+    --ayan-brand: 96 152 255;
+    --ayan-brand-strong: 138 182 255;
+    --ayan-brand-soft: 26 42 74;
+    --ayan-navy: 233 238 247;
+    --ayan-success: 52 199 133;
+    --ayan-warning: 245 197 66;
+    --ayan-danger: 248 113 113;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[rgb(var(--ayan-bg))] text-[rgb(var(--ayan-text))] antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    background: rgb(var(--ayan-brand) / 0.25);
+  }
+
+  /* Accessible focus ring used across all interactive elements */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-[rgb(var(--ayan-bg))];
+  }
+}
+
+@layer components {
+  .ayan-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .ayan-card {
+    @apply rounded-2xl border border-[rgb(var(--ayan-border))] bg-[rgb(var(--ayan-card))] shadow-soft;
+  }
+
+  .ayan-h1 {
+    @apply font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl;
+  }
+
+  .ayan-h2 {
+    @apply font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl;
+  }
+
+  .ayan-h3 {
+    @apply font-display text-xl font-semibold leading-snug sm:text-2xl;
+  }
+
+  .ayan-lead {
+    @apply text-lg leading-relaxed text-[rgb(var(--ayan-muted))];
+  }
+
+  .ayan-eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full bg-[rgb(var(--ayan-brand-soft))] px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-700 dark:text-brand-300;
+  }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    @apply relative overflow-hidden rounded-md bg-[rgb(var(--ayan-border))];
+  }
+  .skeleton::after {
+    content: "";
+    @apply absolute inset-0 -translate-x-full;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(var(--ayan-bg) / 0.6),
+      transparent
+    );
+    animation: shimmer 1.6s infinite;
+  }
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+/* Hide number input spinners for quantity fields */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Custom scrollbar for a more premium feel */
+@media (min-width: 768px) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--ayan-border)) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: rgb(var(--ayan-border));
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+}
